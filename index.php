@@ -1,8 +1,25 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION['userName'])) {
+        header('location: game.php');
+        exit;
+    }
+?>
+
 <html>
     <?php require_once 'parts/header.php' ?>
     <body>
         <?php require_once 'parts/navibar.php' ?>
         <div class="container">
+            <?php if(isset($_SESSION['errors'])): ?>
+                <?php foreach ($_SESSION['errors'] as $error): ?>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <?php echo $error; ?>
+                    </div>
+                <?php endforeach; ?>
+                <?php unset($_SESSION['errors']); ?>
+            <?php endif; ?>
             <div class="d-flex justify-content-center">
                 <img src="images/janken_boys.png" width="400">
             </div>
